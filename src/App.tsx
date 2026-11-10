@@ -1,6 +1,6 @@
+import { lazy, Suspense } from "react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Skills from "./components/sections/Skills";
@@ -9,31 +9,55 @@ import Projects from "./components/sections/Projects";
 import Education from "./components/sections/Education";
 import Contact from "./components/sections/Contact";
 import { useScrollReveal } from "./hooks/useScrollReveal";
-import { usePointerAmbient } from "./hooks/usePointerAmbient";
 import { useScrollProgress } from "./hooks/useScrollProgress";
-import { useClickFeedback } from "./hooks/useClickFeedback";
+import { useLanguage, text } from "./hooks/useLanguage";
+
+import { usePageMetadata } from "./hooks/usePageMetadata";
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
+const isProjectsPage =
+  window.location.pathname.replace(/\/index\.html$/, "").replace(/\/$/, "") ===
+  "/projects";
 
 function App() {
+  usePageMetadata(isProjectsPage);
   useScrollReveal();
-  usePointerAmbient();
   useScrollProgress();
-  useClickFeedback();
+  const { language } = useLanguage();
   return (
     <>
-      <div className="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0}><span className="scroll-progress-fill" /></div>
-      <div className="ambient-layer" aria-hidden="true"><span /><span /><span /></div>
-      <Navbar />
-
-      <main className="container">
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Education />
-        <Contact />
+      <a className="skip-link" href="#main">
+        {text("Đến nội dung chính", "Skip to content", language)}
+      </a>
+      <div className="scroll-progress" aria-hidden="true">
+        <span className="scroll-progress-fill" />
+      </div>
+      <Navbar projectsPage={isProjectsPage} />
+      <main className="container" id="main" tabIndex={-1}>
+        {isProjectsPage ? (
+          <Suspense
+            fallback={
+              <p role="status" className="page-loading">
+                {text("Đang tải dự án…", "Loading projects…", language)}
+              </p>
+            }
+          >
+            <ProjectsPage />
+          </Suspense>
+        ) : (
+          <>
+            <Hero />
+            <About />
+            <Experience />
+            <Skills />
+            <Projects />
+            <Education />
+            <Contact />
+          </>
+        )}
       </main>
-      <div className="container"><Footer /></div>
+      <div className="container">
+        <Footer />
+      </div>
     </>
   );
 }

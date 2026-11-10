@@ -1,0 +1,22 @@
+// Local, unmodified brand SVGs from Simple Icons. See docs/visual-assets.md.
+export const technologyLogos: Record<string, string> = {
+  PHP: "php",
+  Laravel: "laravel",
+  Yii: "yii",
+  "Node.js": "nodedotjs",
+  NestJS: "nestjs",
+  TypeScript: "typescript",
+  JavaScript: "javascript",
+  React: "react",
+  "Next.js": "nextdotjs",
+  "Vue.js": "vuedotjs",
+  PostgreSQL: "postgresql",
+  MySQL: "mysql",
+  Redis: "redis",
+  Docker: "docker",
+  "Docker Compose": "docker",
+  Linux: "linux",
+  Nginx: "nginx",
+  "GitHub Actions": "githubactions",
+  Git: "git",
+};

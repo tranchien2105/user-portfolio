@@ -1,34 +1,71 @@
+export interface Localized {
+  vi: string;
+  en: string;
+}
+
 export interface Profile {
   name: string;
   title: string;
+  yearsExperience: number;
   location: string;
   email: string;
   github: string;
-  introduction: string;
+  phone: string;
+  summary: Localized;
+  cv: string;
 }
 
+export type Capability = "backend" | "frontend" | "database" | "infrastructure";
 export interface SkillGroup {
-  title: string;
+  id: Capability;
+  description: Localized;
+  supportingSkills?: string[];
+  title: Localized;
   skills: string[];
+  note?: Localized;
 }
 
 export interface ExperienceItem {
   company: string;
   position: string;
   period: string;
-  description: string[];
+  description: Localized[];
+  technologies: string[];
 }
 
+export type ProjectCategory = "Backend" | "Fullstack" | "Frontend";
+export interface ProjectScreenshot {
+  src: string;
+  width: number;
+  height: number;
+  alt: Localized;
+  caption: Localized;
+}
 export interface ProjectItem {
+  slug: string;
+  subtitle: Localized;
+  category: ProjectCategory;
+  featured: boolean;
+  flow?: string[];
+  problem: Localized;
+  screenshot?: ProjectScreenshot;
+  notes?: Localized[];
+  sources: string[];
   name: string;
-  description: string;
+  summary: Localized;
+  contributions: Localized[];
+  role?: string;
+  period?: string;
+  kind: Localized;
   technologies: string[];
-  github: string;
+  github?: string;
+  live?: string;
+  liveStatus?: "unavailable";
 }
 
 export interface EducationItem {
-  institution: string;
-  degree: string;
+  institution: Localized;
+  degree: Localized;
   period: string;
-  description?: string;
+  description: Localized;
 }

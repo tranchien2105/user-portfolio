@@ -1,61 +1,52 @@
-import { projects } from "../../data/portfolio";
-import { useLanguage, text } from "../../hooks/useLanguage";
-
+import { featuredProjects, projects } from "../../data/projects";
+import { text, useLanguage } from "../../hooks/useLanguage";
+import { ProjectEntry } from "../projects/ProjectEntry";
+import { SectionHeading } from "../ui/SectionHeading";
 export default function Projects() {
   const { language } = useLanguage();
   return (
     <section className="section" id="projects">
-      <p className="eyebrow">$ ls -la ./projects</p>
-      <h2 className="section-title">{text('DỰ ÁN', 'PROJECTS', language)}</h2>
-
+      <div className="projects-section-header">
+        <SectionHeading
+          number="04"
+          label="FEATURED PROJECTS"
+          title={{ vi: "Một vài dự án nổi bật", en: "Featured projects" }}
+        />
+        <a className="archive-link" href="/projects/">
+          {text("Tất cả dự án", "All projects", language)}{" "}
+          <span>{String(projects.length).padStart(2, "0")} ↗</span>
+        </a>
+      </div>
       <p className="section-description">
-        A selection of projects demonstrating my experience with backend
-        engineering, modern web development, and system design.
+        {text(
+          "Những góc nhìn về phát triển sản phẩm: thương mại điện tử, phối hợp công việc và xử lý tài liệu.",
+          "Perspectives on building products: commerce, team collaboration, and document workflows.",
+          language,
+        )}
       </p>
-
-      <div className="projects-grid">
-        {projects.map((project, index) => (
-          <article className="panel project-card" key={project.name}>
-            <div className="project-heading">
-              <span className="project-icon" aria-hidden="true">
-                {"{ }"}
-              </span>
-
-              <span className="project-number">
-                PROJECT_{String(index + 1).padStart(2, "0")}
-              </span>
-
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`View ${project.name} on GitHub`}
-              >
-                ↗
-              </a>
-            </div>
-
-            <h3>{project.name}</h3>
-            <p className="project-description">{project.description}</p>
-
-            <div className="tag-list">
-              {project.technologies.map((technology) => (
-                <span className="tag" key={technology}>
-                  {technology}
-                </span>
-              ))}
-            </div>
-
-            <a
-              className="project-link"
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              View source code <span aria-hidden="true">↗</span>
-            </a>
-          </article>
+      <div className="projects-list featured-list">
+        {featuredProjects.map((project, index) => (
+          <ProjectEntry
+            project={project}
+            index={index}
+            featured
+            lead={index === 0}
+            key={project.slug}
+          />
         ))}
+      </div>
+      <div className="projects-archive-cta">
+        <p>
+          {text(
+            "Còn có API thanh toán, xử lý video, hệ thống doanh nghiệp và quản lý portfolio.",
+            "Also explore payment APIs, video processing, enterprise systems, and portfolio management.",
+            language,
+          )}
+        </p>
+        <a className="button button-secondary" href="/projects/">
+          {text("Khám phá toàn bộ dự án", "Browse all projects", language)}{" "}
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
   );

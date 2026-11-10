@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("portfolio-theme") === "dark" ? "dark" : "light";
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Khám phá dự án phần mềm của Tran Minh Chien: thương mại điện tử, quản lý công việc, tài liệu, thanh toán và xử lý video. Tìm kiếm theo lĩnh vực và công nghệ."
+    />
+    <meta name="author" content="Tran Minh Chien" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Dự án | Tran Minh Chien — Software Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Các dự án cá nhân và doanh nghiệp của Tran Minh Chien. Backend, Fullstack, REST API, tài liệu và xử lý video."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Dự án | Tran Minh Chien — Software Engineer</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

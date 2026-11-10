@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "./App";
-import { LanguageProvider } from "./hooks/useLanguage";
+import { LanguageProvider } from "./hooks/LanguageProvider";
 import "./styles/global.css";
 
 const rootElement = document.getElementById("root");
@@ -13,6 +13,8 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <LanguageProvider><App /></LanguageProvider>
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </StrictMode>,
 );
