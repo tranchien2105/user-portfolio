@@ -12,35 +12,45 @@ import { useScrollReveal } from "./hooks/useScrollReveal";
 import { useScrollProgress } from "./hooks/useScrollProgress";
 import { useLanguage, text } from "./hooks/useLanguage";
 
+import ProjectCaseStudy from "./pages/ProjectCaseStudy";
+import NotFoundPage from "./pages/NotFoundPage";
+import InteractiveTools from "./components/ui/InteractiveTools";
+import { resolveRoute } from "./lib/routes";
+import { projects } from "./data/projects";
 import { usePageMetadata } from "./hooks/usePageMetadata";
+import { LoadingState } from "./components/ui/LoadingState";
+import { DailyWelcome } from "./components/ui/DailyWelcome";
+import { NavigationFeedback } from "./components/ui/NavigationFeedback";
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
-const isProjectsPage =
-  window.location.pathname.replace(/\/index\.html$/, "").replace(/\/$/, "") ===
-  "/projects";
+const route = resolveRoute(window.location.pathname);
+const project =
+  route.kind === "case-study"
+    ? projects.find((project) => project.slug === route.slug)
+    : undefined;
 
 function App() {
-  usePageMetadata(isProjectsPage);
+  usePageMetadata(route);
   useScrollReveal();
   useScrollProgress();
   const { language } = useLanguage();
   return (
     <>
+      <NavigationFeedback />
+      <DailyWelcome />
       <a className="skip-link" href="#main">
         {text("Đến nội dung chính", "Skip to content", language)}
       </a>
       <div className="scroll-progress" aria-hidden="true">
         <span className="scroll-progress-fill" />
       </div>
-      <Navbar projectsPage={isProjectsPage} />
+      <Navbar projectsPage={route.kind !== "home"} />
       <main className="container" id="main" tabIndex={-1}>
-        {isProjectsPage ? (
-          <Suspense
-            fallback={
-              <p role="status" className="page-loading">
-                {text("Đang tải dự án…", "Loading projects…", language)}
-              </p>
-            }
-          >
+        {route.kind === "case-study" && project ? (
+          <ProjectCaseStudy project={project} />
+        ) : route.kind === "not-found" ? (
+          <NotFoundPage />
+        ) : route.kind === "projects" ? (
+          <Suspense fallback={<LoadingState />}>
             <ProjectsPage />
           </Suspense>
         ) : (
@@ -58,6 +68,7 @@ function App() {
       <div className="container">
         <Footer />
       </div>
+      <InteractiveTools />
     </>
   );
 }

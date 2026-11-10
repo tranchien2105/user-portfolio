@@ -4,7 +4,7 @@ Primary CV: `docs/Tran-Minh-Chien-SortWareEngineer.pdf`. The four existing CV pr
 
 | Project | Evidence | Category | Missing information |
 | --- | --- | --- | --- |
-| Technest | CV; `../technest/docs/deployments/2026-11-05/inset-correction/1440-top.png` | Fullstack | None of the requested fields |
+| Technest | CV; current README/backend source; `../technest/docs/deployments/2026-11-05/inset-correction/1440-top.png` | Fullstack | CV lists NestJS; current source uses Express 5/Drizzle. Framework change history needs confirmation |
 | TaskFlow | CV | Fullstack | Public demo and screenshot |
 | DMS System | CV, including the 12-person team | Backend | GitHub and screenshot; CV website returned 404 in the earlier HTTP check |
 | VTech | CV, including the 6-person team | Fullstack | GitHub and screenshot |
@@ -31,12 +31,16 @@ Papertrail now also has a real 1440×1000 screenshot captured from its public de
 
 ## Architecture and URLs
 
-`src/data/projects.ts` is the only project dataset. Featured entries, archive rows, terminal project output and filter options use that dataset. Existing general profile/experience/education data remains in `src/data/portfolio.ts`.
+`src/data/projects.ts` holds common project facts. `src/data/caseStudies.ts` holds audited technical explanations, architecture connections and source references. Featured entries, archive rows, terminal project output and filter options use that dataset. Existing general profile/experience/education data remains in `src/data/portfolio.ts`.
 
-The Vite build produces a separate HTML entry for `/projects/`. Each project has a stable slug and a permalink (`/projects/#slug`). The model is ready for future `/projects/[slug]` detail routes; no unimplemented route is linked.
+The Vite build produces `/projects/` and prerendered `/projects/[slug]/index.html` for all eight projects, with individual metadata and readable HTML. Unknown routes use `404.html`. Six projects have interactive logical architecture diagrams; DMS/VTech explicitly show missing architecture information.
 
 ## Link and browser verification
 
 HTTP checks on 2026-11-10 returned 200 for all five provided GitHub repositories and the Technest, Papertrail and VTech demos. DMS returned 404. Its original URL is preserved in the dataset with `liveStatus: "unavailable"`; the interface presents an unavailable state in place of a working-demo link.
 
 Validation passed: lint, typecheck, production build, Prettier check and six project/filter regression tests. Chromium tested the production files through a plain static HTTP server, including direct `/projects` access, per-page metadata, homepage/archive navigation, combined filters, query persistence, empty/reset states, keyboard focus after reset, accent-insensitive search, project permalinks, VI/EN metadata, theme controls, screenshot/PDF responses and the terminal's complete project list. Both languages were checked for horizontal overflow at 320, 375, 600, 768, 1024 and 1440px. No runtime errors were observed. Desktop/mobile screenshots were reviewed.
+
+## Interactive case studies — source reconciliation
+
+Technest's current README, backend package and implementation use Express 5, Drizzle ORM, PostgreSQL, Redis and BullMQ, with COD checkout and inventory reservations. The CV entry uses NestJS. The discrepancy is retained in the audit data/docs rather than a public-facing banner. Implementation details describe current source; no migration history or production metrics are inferred. TaskFlow architecture is supported by its current README (REST/JWT, TypeORM, Redis cache, Socket.IO user rooms). Other architecture references are stored beside each graph in `caseStudies.ts`. These are logical application connections, not claims about production deployment topology.

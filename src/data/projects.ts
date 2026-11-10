@@ -402,5 +402,5 @@ export const projects: ProjectItem[] = [
 
 export const featuredProjects = projects.filter((project) => project.featured);
 export function projectUrl(project: Pick<ProjectItem, "slug">): string {
-  return `/projects/#${project.slug}`;
+  return `/projects/${project.slug}/`;
 }

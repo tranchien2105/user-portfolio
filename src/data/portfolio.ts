@@ -15,7 +15,7 @@ export const profile: Profile = {
   email: "tranchien021@gmail.com",
   phone: "0349521656",
   github: "https://github.com/tranchien2105",
-  cv: `${import.meta.env.BASE_URL}Tran-Minh-Chien-SortWareEngineer.pdf`,
+  cv: `${import.meta.env?.BASE_URL ?? "/"}Tran-Minh-Chien-SortWareEngineer.pdf`,
   summary: l(
     "Kỹ sư phần mềm với 4 năm kinh nghiệm xây dựng ứng dụng web doanh nghiệp, RESTful API và giải pháp fullstack. Kinh nghiệm thực tế với PHP/Laravel; phát triển thêm chuyên môn TypeScript, NestJS, React và Next.js qua các dự án cá nhân.",
     "Software Engineer with 4 years of experience developing enterprise web applications, RESTful APIs, and fullstack solutions. Experienced in PHP/Laravel and expanding expertise in TypeScript, NestJS, React, and Next.js through personal projects.",
@@ -49,7 +49,7 @@ export const careerHighlights = [
       "API design, data synchronization, and PostgreSQL/MySQL query optimization in a DMS platform.",
     ),
     evidence: l("DMS · Backend Developer", "DMS · Backend Developer"),
-    href: "/projects/#dms-system",
+    href: "/projects/dms-system/",
   },
   {
     id: "frontend" as const,

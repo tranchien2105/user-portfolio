@@ -112,5 +112,5 @@ test("invalid URL facets reset safely, valid filters round-trip", () => {
     readProjectFilters("?q=MoMo&category=Backend&tech=NestJS", technologies),
     { query: "MoMo", category: "Backend", technology: "NestJS" },
   );
-  assert.equal(projectUrl({ slug: "payflow" }), "/projects/#payflow");
+  assert.equal(projectUrl({ slug: "payflow" }), "/projects/payflow/");
 });

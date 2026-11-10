@@ -1,36 +1,8 @@
 import type { ProjectItem } from "../../types/portfolio";
 import { projectUrl } from "../../data/projects";
 import { text, useLanguage } from "../../hooks/useLanguage";
+import { ProjectScreenshot } from "./ProjectScreenshot";
 import { ProjectLinks } from "./ProjectLinks";
-function Screenshot({ project }: { project: ProjectItem }) {
-  const { language } = useLanguage();
-  const shot = project.screenshot;
-  if (!shot) return null;
-  return (
-    <figure className="project-screenshot">
-      <a
-        href={shot.src}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={text(
-          `Xem screenshot ${project.name} kích thước đầy đủ`,
-          `Open full-size ${project.name} screenshot`,
-          language,
-        )}
-      >
-        <img
-          src={shot.src}
-          width={shot.width}
-          height={shot.height}
-          alt={shot.alt[language]}
-          loading="lazy"
-          decoding="async"
-        />
-      </a>
-      <figcaption>{shot.caption[language]}</figcaption>
-    </figure>
-  );
-}
 function ProjectStack({ project }: { project: ProjectItem }) {
   const { language } = useLanguage();
   return (
@@ -77,7 +49,7 @@ function FeaturedProject({
       </div>
       <div className="feature-media">
         {project.screenshot ? (
-          <Screenshot project={project} />
+          <ProjectScreenshot project={project} />
         ) : project.flow ? (
           <div className="project-flow">
             <p className="eyebrow">TECHNICAL FLOW</p>
@@ -225,6 +197,9 @@ export function ProjectEntry({
             </li>
           ))}
         </ul>
+        <a className="project-read-more" href={projectUrl(project)}>
+          {text("Đọc case study", "Read case study", language)} ↗
+        </a>
         <details className="project-details">
           <summary>
             {text(
@@ -237,7 +212,7 @@ export function ProjectEntry({
           <div className="project-details-content">
             {details}
             {project.screenshot ? (
-              <Screenshot project={project} />
+              <ProjectScreenshot project={project} />
             ) : (
               <p className="project-media-status">
                 {text(

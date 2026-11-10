@@ -1,0 +1,31 @@
+/* Native cursors keep the precise hotspot; no JavaScript or trailing effects. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor:
+      url("/cursors/arrow.svg") 3 3,
+      auto;
+  }
+
+  a[href],
+  button:not(:disabled),
+  summary,
+  [role="button"]:not([aria-disabled="true"]),
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    cursor:
+      url("/cursors/hand.svg") 13 3,
+      pointer;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
+  }
+
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}

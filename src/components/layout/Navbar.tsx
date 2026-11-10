@@ -46,6 +46,42 @@ export default function Navbar({
           ))}
         </div>
         <div className="nav-tools">
+          <button
+            className="language-button command-trigger"
+            type="button"
+            aria-haspopup="dialog"
+            aria-keyshortcuts="Control+k Meta+k"
+            aria-label={text(
+              "Tìm nhanh (Ctrl hoặc Cmd + K)",
+              "Quick search (Ctrl or Cmd + K)",
+              language,
+            )}
+            onClick={() => window.dispatchEvent(new Event("portfolio:command"))}
+            onPointerEnter={() => {
+              void import("../ui/CommandPalette").catch(() => {
+                /* Optional preload; it must not block other navigation. */
+              });
+            }}
+            onFocus={() => {
+              void import("../ui/CommandPalette").catch(() => {
+                /* Optional preload; it must not block other navigation. */
+              });
+            }}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              aria-hidden="true"
+            >
+              <circle cx="10" cy="10" r="6" />
+              <path d="m15 15 6 6" />
+            </svg>
+            <kbd>K</kbd>
+          </button>
           <ClockWidget />
           <button
             className="language-button theme-button"

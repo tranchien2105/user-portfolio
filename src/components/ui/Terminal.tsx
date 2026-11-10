@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useId,
   useRef,
   useState,
   type FormEvent,
@@ -13,6 +14,7 @@ import { useLanguage } from "../../hooks/useLanguage";
 interface TerminalProps {
   title?: string;
   children: ReactNode;
+  focusOnOpen?: boolean;
 }
 
 interface CommandResult {
@@ -20,8 +22,13 @@ interface CommandResult {
   response: ReactNode;
 }
 
-export function Terminal({ title = "terminal", children }: TerminalProps) {
+export function Terminal({
+  title = "terminal",
+  children,
+  focusOnOpen = false,
+}: TerminalProps) {
   const { language } = useLanguage();
+  const inputId = useId();
   const [command, setCommand] = useState("");
   const [history, setHistory] = useState<CommandResult[]>([]);
   const [cleared, setCleared] = useState(false);
@@ -49,8 +56,8 @@ export function Terminal({ title = "terminal", children }: TerminalProps) {
       case "help":
         response = (
           <span>
-            Available: <b>info</b>, <b>infor</b>, <b>thong tin</b>, <b>about</b>
-            , <b>projects</b>, <b>skills</b>, <b>contact</b>, <b>clear</b>
+            Commands: <b>help</b>, <b>about</b>, <b>skills</b>, <b>projects</b>,{" "}
+            <b>contact</b>, <b>clear</b>
           </span>
         );
         break;
@@ -150,7 +157,10 @@ export function Terminal({ title = "terminal", children }: TerminalProps) {
 
     commandHistory.current.push(raw);
     historyIndex.current = commandHistory.current.length;
-    setHistory((entries) => [...entries, { command: raw, response }]);
+    setHistory((entries) => [
+      ...entries.slice(-49),
+      { command: raw, response },
+    ]);
     setCleared(false);
     setCommand("");
   };
@@ -201,18 +211,20 @@ export function Terminal({ title = "terminal", children }: TerminalProps) {
           ))}
         </div>
         <form className="terminal-input-row" onSubmit={submit}>
-          <label className="terminal-user" htmlFor="terminal-command">
+          <label className="terminal-user" htmlFor={inputId}>
             chien@portfolio
           </label>
           <span aria-hidden="true">:</span>
           <span className="terminal-path" aria-hidden="true">
             ~
           </span>
-          <label className="terminal-input-symbol" htmlFor="terminal-command">
+          <label className="terminal-input-symbol" htmlFor={inputId}>
             $
           </label>
           <input
-            id="terminal-command"
+            id={inputId}
+            data-modal-focus={focusOnOpen ? "" : undefined}
+            data-terminal-input
             value={command}
             onChange={(event) => setCommand(event.target.value)}
             onKeyDown={handleInputKeyDown}

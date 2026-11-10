@@ -1,0 +1,232 @@
+/* Feedback follows real requests; no timed splash screens or simulated percentages. */
+.loading-state {
+  padding: 32px 0;
+}
+.loading-state-page {
+  min-height: 70svh;
+  padding-block: 65px;
+}
+.loading-state-palette {
+  padding: 24px;
+  min-height: 340px;
+}
+.loading-caption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.loading-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: loading-spin 0.8s linear infinite;
+}
+.loading-skeleton {
+  margin-top: 28px;
+}
+.skeleton-heading,
+.skeleton-number,
+.skeleton-title,
+.skeleton-description,
+.screenshot-skeleton {
+  background: var(--surface-raised);
+  animation: skeleton-breathe 1.6s ease-in-out infinite;
+}
+.skeleton-heading {
+  width: min(440px, 80%);
+  height: 85px;
+  margin-bottom: 35px;
+  border-radius: 3px;
+}
+.skeleton-row {
+  display: flex;
+  gap: 18px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+}
+.skeleton-row > div {
+  flex: 1;
+}
+.skeleton-number {
+  display: block;
+  width: 28px;
+  height: 26px;
+  border-radius: 3px;
+}
+.skeleton-title {
+  display: block;
+  width: 50%;
+  height: 20px;
+  border-radius: 3px;
+}
+.skeleton-description {
+  display: block;
+  width: 85%;
+  height: 12px;
+  margin-top: 14px;
+  border-radius: 3px;
+}
+.loading-state-palette .skeleton-row {
+  padding: 19px 0;
+}
+.loading-state-palette .skeleton-title {
+  height: 13px;
+}
+.loading-state-palette .skeleton-description {
+  height: 9px;
+}
+.loading-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 24px;
+  line-height: 1.8;
+}
+.navigation-feedback {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1200;
+  pointer-events: none;
+}
+.navigation-loading-bar {
+  display: block;
+  height: 3px;
+  width: 35%;
+  background: var(--accent);
+  animation: navigation-travel 1.1s ease-in-out infinite alternate;
+}
+.navigation-loading-label {
+  position: absolute;
+  top: 90px;
+  right: max(18px, calc((100vw - 1200px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg);
+  box-shadow: var(--shadow-soft);
+  color: var(--muted);
+  font-size: 12px;
+}
+.screenshot-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+}
+.screenshot-frame > a {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+.screenshot-frame img {
+  height: 100%;
+}
+.screenshot-frame[data-state="loading"] img {
+  background: transparent;
+}
+.screenshot-skeleton {
+  position: absolute;
+  inset: 0;
+}
+.screenshot-frame[data-state="loaded"] img {
+  animation: image-arrive 0.22s ease-out;
+}
+.screenshot-frame[data-state="error"] > a {
+  visibility: hidden;
+}
+.screenshot-error {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  text-align: center;
+  background: var(--surface);
+}
+.screenshot-error p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.screenshot-error button {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--accent);
+  background: var(--bg);
+  font-size: 12px;
+}
+.dialog-panel {
+  animation: panel-arrive 0.15s ease-out;
+}
+.portfolio-context-menu {
+  animation: panel-arrive 0.12s ease-out;
+  transform-origin: top left;
+}
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes skeleton-breathe {
+  50% {
+    opacity: 0.48;
+  }
+}
+@keyframes navigation-travel {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(185%);
+  }
+}
+@keyframes image-arrive {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes panel-arrive {
+  from {
+    opacity: 0.5;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner,
+  .skeleton-heading,
+  .skeleton-number,
+  .skeleton-title,
+  .skeleton-description,
+  .screenshot-skeleton,
+  .navigation-loading-bar,
+  .screenshot-frame[data-state="loaded"] img,
+  .dialog-panel,
+  .portfolio-context-menu {
+    animation: none;
+  }
+  .navigation-loading-bar {
+    width: 100%;
+  }
+}

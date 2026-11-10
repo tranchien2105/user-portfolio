@@ -43,21 +43,47 @@ export default function Experience() {
                   )}
                 </span>
               </header>
-              <ul className="detail-list">
-                {item.description.map((line) => (
-                  <li key={line.en}>{line[language]}</li>
-                ))}
-              </ul>
-              <ul
-                className="tag-list"
-                aria-label={text("Công nghệ", "Technologies", language)}
-              >
-                {item.technologies.map((tech) => (
-                  <li className="tag" key={tech}>
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+              <p className="journey-preview">{item.description[0][language]}</p>
+              <details className="journey-details">
+                <summary>
+                  {text(
+                    "Trách nhiệm & công nghệ",
+                    "Responsibilities & technologies",
+                    language,
+                  )}{" "}
+                  <span aria-hidden="true">+</span>
+                </summary>
+                <ul className="detail-list">
+                  {item.description.map((line) => (
+                    <li key={line.en}>{line[language]}</li>
+                  ))}
+                </ul>
+                <ul
+                  className="tag-list"
+                  aria-label={text("Công nghệ", "Technologies", language)}
+                >
+                  {item.technologies.map((tech) => (
+                    <li className="tag" key={tech}>
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  className="project-read-more"
+                  href={
+                    item.company === "FinViet"
+                      ? "/projects/dms-system/"
+                      : "/projects/vtech/"
+                  }
+                >
+                  {text(
+                    "Xem dự án liên quan",
+                    "Explore related work",
+                    language,
+                  )}{" "}
+                  ↗
+                </a>
+              </details>
             </article>
           </li>
         ))}
