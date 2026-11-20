@@ -8,7 +8,6 @@ import Experience from "./components/sections/Experience";
 import Projects from "./components/sections/Projects";
 import Education from "./components/sections/Education";
 import Contact from "./components/sections/Contact";
-import { useScrollReveal } from "./hooks/useScrollReveal";
 import { useScrollProgress } from "./hooks/useScrollProgress";
 import { useLanguage, text } from "./hooks/useLanguage";
 
@@ -30,7 +29,6 @@ const project =
 
 function App() {
   usePageMetadata(route);
-  useScrollReveal();
   useScrollProgress();
   const { language } = useLanguage();
   return (
@@ -40,9 +38,6 @@ function App() {
       <a className="skip-link" href="#main">
         {text("Đến nội dung chính", "Skip to content", language)}
       </a>
-      <div className="scroll-progress" aria-hidden="true">
-        <span className="scroll-progress-fill" />
-      </div>
       <Navbar projectsPage={route.kind !== "home"} />
       <main className="container" id="main" tabIndex={-1}>
         {route.kind === "case-study" && project ? (
@@ -58,8 +53,8 @@ function App() {
             <Hero />
             <About />
             <Experience />
-            <Skills />
             <Projects />
+            <Skills />
             <Education />
             <Contact />
           </>

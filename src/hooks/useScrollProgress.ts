@@ -4,8 +4,8 @@ const sections = [
   "home",
   "about",
   "exp",
-  "skills",
   "projects",
+  "skills",
   "education",
   "contact",
 ];

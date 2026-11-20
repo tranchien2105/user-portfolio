@@ -1,80 +1,51 @@
 import { skills } from "../../data/portfolio";
 import { useLanguage, text } from "../../hooks/useLanguage";
 import { SectionHeading } from "../ui/SectionHeading";
-import { CapabilityIcon } from "../ui/CapabilityIcon";
-import { TechnologyBadge } from "../ui/TechnologyBadge";
+
+const orderedSkills = [...skills].sort(
+  (a, b) =>
+    ["backend", "database", "infrastructure", "frontend"].indexOf(a.id) -
+    ["backend", "database", "infrastructure", "frontend"].indexOf(b.id),
+);
+
 export default function Skills() {
   const { language } = useLanguage();
   return (
     <section className="section capabilities-section" id="skills">
-      <div className="capabilities-heading">
-        <SectionHeading
-          number="03"
-          label="ENGINEERING CAPABILITIES"
-          title={{
-            vi: "Năng lực & công nghệ",
-            en: "Capabilities & technologies",
-          }}
-        />
-        <p>
-          {text(
-            "Công cụ gắn với công việc cụ thể. Kinh nghiệm doanh nghiệp là nền tảng; các dự án cá nhân mở rộng phạm vi thực hành.",
-            "Tools connected to real work. Enterprise experience is the foundation; personal projects expand the scope of practice.",
-            language,
-          )}
-        </p>
-      </div>
-      <div className="capabilities-grid">
-        {skills.map((group, index) => (
-          <article
-            className={`capability capability-${group.id}`}
-            key={group.id}
-          >
-            <header className="capability-header">
-              <span className="capability-mark">
-                <CapabilityIcon name={group.id} />
-              </span>
-              <span className="capability-index">
-                0{index + 1} /{" "}
-                {group.id === "backend" ? "CORE FOCUS" : "CAPABILITY"}
-              </span>
-            </header>
-            <h3>{group.title[language]}</h3>
-            <p className="capability-description">
-              {group.description[language]}
-            </p>
-            <ul className="technology-list">
-              {group.skills.map((skill) => (
-                <li key={skill}>
-                  <TechnologyBadge name={skill} />
-                </li>
-              ))}
-            </ul>
-            {group.supportingSkills && (
-              <p className="supporting-skills">
-                <span>{text("Thêm", "Also", language)}</span>{" "}
-                {group.supportingSkills.join(" · ")}
-              </p>
-            )}
-            {group.note && (
-              <p className="capability-context">{group.note[language]}</p>
-            )}
-          </article>
+      <SectionHeading
+        title={{ vi: "Công nghệ trong công việc", en: "Tools I work with" }}
+      />
+      <dl className="skill-domains">
+        {orderedSkills.map((group) => (
+          <div className="skill-domain" key={group.id}>
+            <dt>{group.title[language]}</dt>
+            <dd>
+              <p>{group.description[language]}</p>
+              <p className="skill-tools">{group.skills.join(", ")}</p>
+              {group.supportingSkills && (
+                <p className="supporting-skills">
+                  {text("Thêm", "Also", language)}:{" "}
+                  {group.supportingSkills.join(", ")}
+                </p>
+              )}
+              {group.note && (
+                <p className="skill-context">{group.note[language]}</p>
+              )}
+            </dd>
+          </div>
         ))}
-      </div>
-      <div className="skills-language">
-        <span>{text("Ngoại ngữ", "Language", language)}</span>
-        <strong>
-          English <span>TOEIC 600</span>
-        </strong>
-        <p>
+      </dl>
+      <p className="skills-language">
+        {text("Ngoại ngữ", "Language", language)}:{" "}
+        <strong>English · TOEIC 600</strong>{" "}
+        <span>
           {text(
-            "Thông tin theo CV hiện tại",
+            "Theo CV hiện tại",
             "As documented in the current CV",
             language,
           )}
-        </p>
-      </div>
+        </span>
+      </p>
     </section>
   );
 }

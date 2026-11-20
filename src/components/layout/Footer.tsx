@@ -8,8 +8,21 @@ export default function Footer() {
       <span>
         © {new Date().getFullYear()} {profile.name}
       </span>
-      <span>React / TypeScript</span>
-      <a href="#main">{text("Về đầu trang", "Back to top", language)} ↑</a>
+      <nav
+        className="footer-tools"
+        aria-label={text("Liên kết khác", "More links", language)}
+      >
+        <a href="/#skills">{text("Kỹ năng", "Skills", language)}</a>
+        <a href="/#education">{text("Học vấn", "Education", language)}</a>
+        <button
+          type="button"
+          aria-haspopup="dialog"
+          onClick={() => window.dispatchEvent(new Event("portfolio:terminal"))}
+        >
+          Terminal
+        </button>
+      </nav>
+      <a href="#main">{text("Về đầu trang", "Back to top", language)}</a>
     </footer>
   );
 }

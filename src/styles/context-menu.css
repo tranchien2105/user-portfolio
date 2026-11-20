@@ -18,7 +18,7 @@
   gap: 10px;
   padding: 8px 10px 12px;
   color: var(--muted);
-  font: 11px/1.6 var(--mono);
+  font: 12px/1.6 var(--mono);
 }
 .context-menu-dot {
   color: var(--accent);
@@ -57,7 +57,7 @@
 }
 .portfolio-context-menu kbd {
   margin-left: auto;
-  font-size: 9px;
+  font-size: 12px;
   white-space: nowrap;
 }
 .context-menu-divider {
@@ -68,5 +68,5 @@
 .context-menu-hint {
   margin: 9px 10px 4px;
   color: var(--muted);
-  font: 9px/1.7 var(--mono);
+  font: 12px/1.7 var(--mono);
 }

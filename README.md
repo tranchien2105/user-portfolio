@@ -52,9 +52,9 @@ Trong lần kiểm tra HTTP ngày 10/11/2026, GitHub cá nhân, repository Techn
 
 ## Giao diện và khả năng truy cập
 
-Tiêu đề các mục dùng chung component `src/components/ui/SectionHeading.tsx`. Các biến thiết kế và kiểu dáng được quản lý tại `src/styles/global.css`. Bố cục điều chỉnh theo các mốc 1100px, 800px và 600px.
+Tiêu đề các mục dùng chung component `src/components/ui/SectionHeading.tsx`. Các biến thiết kế và kiểu dáng được quản lý tại `src/styles/global.css`. Bố cục được căn giữa trong khung tối đa 1200px, với lề co giãn theo màn hình. Phần giới thiệu đặt cạnh hồ sơ nghề nghiệp ngắn. About tách thành phần mô tả và dẫn chứng chuyên môn hiển thị trực tiếp. Kinh nghiệm gắn trách nhiệm với hệ thống đã làm; dự án và các nhóm kỹ năng dùng bố cục riêng theo lượng nội dung. Các mốc 1050px, 760px và 600px điều chỉnh bố cục trên laptop/tablet/mobile; case study có mốc bổ sung riêng.
 
-Website sử dụng tiêu đề, danh sách HTML có ngữ nghĩa, liên kết bỏ qua điều hướng và trạng thái focus rõ ràng cho bàn phím. Hiệu ứng chuyển động tuân theo `prefers-reduced-motion`; phông chữ tải với `display=swap`.
+Website sử dụng tiêu đề, danh sách HTML có ngữ nghĩa, liên kết bỏ qua điều hướng và trạng thái focus rõ ràng cho bàn phím. Hiệu ứng chuyển động tuân theo `prefers-reduced-motion`; Be Vietnam Pro cho tên, tiêu đề và nội dung; Newsreader tiếp tục dùng trong case study, tự host ở `public/fonts/` cùng giấy phép SIL OFL. Các subset Latin/tiếng Việt dùng WOFF2; font chính được preload và tải với `font-display: swap`. Nội dung luôn hiển thị, không chờ hiệu ứng xuất hiện khi cuộn.
 
 Giao diện mặc định là chế độ sáng. Lựa chọn sáng/tối của người dùng được lưu bằng khóa `portfolio-theme`.
 
@@ -64,17 +64,17 @@ Không bổ sung thư viện UI hoặc dependency chạy ứng dụng trong các
 
 - Các lệnh lint, typecheck và build đã chạy thành công.
 - Kiểm tra bằng Chromium bao gồm điều hướng theo mục, tải PDF, lệnh terminal, lưu lựa chọn ngôn ngữ/giao diện, điều khiển đồng hồ và hỗ trợ giảm chuyển động.
-- Đã kiểm tra tràn ngang tại các kích thước 320px, 375px, 600px, 768px, 1024px và 1440px. Bản giao diện mới được kiểm tra riêng ở 375px, 768px và 1440px với cả tiếng Việt và tiếng Anh. Không ghi nhận lỗi runtime trong các lượt kiểm tra này.
-- Đã xem lại ảnh chụp giao diện desktop và mobile. Phần tối ưu loại bỏ hiệu ứng theo con trỏ, các lớp làm mờ lớn và việc tải phông chữ trùng lặp. Command Palette và trang danh sách dự án được tải theo nhu cầu.
+- Lượt kiểm tra nội dung ngày 20/11/2026 kiểm tra trang chủ tại 320px, 390px, 768px, 1024px, 1100px, 1440px và 1920px; cả 8 case study tại 320px, 390px, 768px và 1440px. Không ghi nhận tràn ngang hoặc lỗi JavaScript.
+- Đã xem ảnh desktop/mobile và kiểm tra đổi ngôn ngữ, theme, tìm nhanh, terminal, tìm/lọc/reset dự án, metadata 404 và tải CV. Các trang và Command Palette được tải theo nhu cầu; ảnh có kích thước và khung tỷ lệ để hạn chế dịch chuyển bố cục.
 - Chưa đo Core Web Vitals từ người dùng thực tế.
 
 ## Danh sách dự án
 
-- Trang `/` hiển thị các dự án có `featured: true`. Hiện có 3 dự án nổi bật: Technest, TaskFlow và Papertrail.
+- Trang `/` trình bày Technest là dự án chính, chọn từ phần tử đầu tiên có `featured: true`. TaskFlow và Papertrail có phần giới thiệu mở rộng với bài toán, đóng góp và quyết định kỹ thuật. 5 dự án còn lại là các hàng ngắn, mở rộng được bài toán, đóng góp, ảnh và luồng xử lý khi có dữ liệu.
 - Trang `/projects/` hiển thị toàn bộ 8 dự án, không giới hạn số lượng. Tìm kiếm hỗ trợ cả hai ngôn ngữ và các nội dung như tên, bài toán, đóng góp kỹ thuật, công nghệ.
 - Bộ lọc lĩnh vực, công nghệ và từ khóa kết hợp theo điều kiện AND, nghĩa là dự án phải thỏa mãn tất cả điều kiện đang chọn. Bộ lọc được lưu trong tham số URL: `q`, `category`, `tech`.
 - Slug ổn định tạo trang chi tiết, ví dụ `/projects/papertrail/`. Mỗi case study trình bày tổng quan, bài toán, giải pháp, kiến trúc, công nghệ, thách thức và ảnh chụp. Các mục thiếu dữ liệu có thông báo rõ ràng.
-- Để bổ sung dự án, thêm một đối tượng `ProjectItem` vào `src/data/projects.ts`. Các lựa chọn công nghệ và số lượng dự án theo lĩnh vực được tính từ dữ liệu, không cần sửa bố cục. Đặt `featured: true` để đưa dự án lên trang chủ; nên duy trì từ 2–4 dự án nổi bật.
+- Để bổ sung dự án, thêm một đối tượng `ProjectItem` vào `src/data/projects.ts`. Các lựa chọn công nghệ và số lượng dự án theo lĩnh vực được tính từ dữ liệu, không cần sửa bố cục. Trang chủ hiển thị mọi dự án; dự án đầu tiên có `featured: true` được dùng làm phần giới thiệu chính.
 - Các trường `role`, `period`, `github`, `live`, `screenshot` là tùy chọn. Nếu chưa có dữ liệu xác thực, giao diện hiển thị trạng thái phù hợp. Trường `notes` ghi chú phạm vi và giới hạn; `sources` lưu nguồn đối chiếu.
 - Bộ lọc công nghệ chuẩn hóa nhãn phiên bản, chẳng hạn `NestJS 11` khớp với `NestJS`, đồng thời giữ nguyên nhãn công nghệ khi hiển thị.
 - `npm test` kiểm tra bộ lọc, routing, metadata, tìm kiếm lệnh và tính nhất quán của dữ liệu kiến trúc bằng Node.js 22.
@@ -94,15 +94,17 @@ Bảng màu giao diện sáng:
 | Thành phần | Màu       |
 | ---------- | --------- |
 | Nền chính  | `#FFFFFF` |
-| Nền phụ    | `#F8FAFC` |
-| Chữ chính  | `#111827` |
-| Chữ phụ    | `#475569` |
-| Điểm nhấn  | `#2563EB` |
-| Đường viền | `#E2E8F0` |
+| Nền phụ    | `#F5F5F4` |
+| Chữ chính  | `#222222` |
+| Chữ phụ    | `#606060` |
+| Điểm nhấn  | `#B83424` |
+| Đường viền | `#DDDDDA` |
 
-Phần giới thiệu trình bày các điểm nổi bật trong sự nghiệp cùng dẫn chứng. Kỹ năng được chia thành 4 nhóm: Backend Engineering, Frontend Development, Database & Caching và DevOps & Infrastructure.
+Trang đọc theo thứ tự giới thiệu, About, kinh nghiệm, dự án, kỹ năng, học vấn và liên hệ. Navigation ngang chỉ giữ các mục chính; tìm nhanh, theme, ngôn ngữ và đồng hồ nằm trong menu Tùy chọn. Tên dùng Be Vietnam Pro đậm, điểm nhấn đỏ vermilion; các tiêu đề nội dung dùng Be Vietnam Pro. Không dùng nhãn viết hoa lặp lại, sidebar, thanh tiến độ cuộn hay nền riêng cho từng section. Khoảng cách được đặt theo quan hệ nội dung thay vì padding chung cho mọi section.
 
-Logo công nghệ dạng SVG được tải từ tài nguyên cục bộ qua component `TechnologyBadge`; biểu tượng nhóm năng lực dùng `CapabilityIcon`. Ghi chú kỹ năng phân biệt kinh nghiệm công việc, dự án cá nhân và thực hành trong lab.
+Kinh nghiệm trình bày theo mốc thời gian, kèm hệ thống DMS/VTech, ngữ cảnh nghiệp vụ và các đóng góp gốc. Technest là dự án chính; TaskFlow và Papertrail có nội dung kỹ thuật hiển thị trực tiếp; 5 dự án còn lại dùng hàng ngắn. Mọi dữ liệu gốc, đường dẫn case study, ảnh, CV và bộ lọc vẫn được giữ. Phần liên hệ là email cùng các liên kết trực tiếp.
+
+Kỹ năng được trình bày bằng danh sách chữ theo nhóm Backend, Database, Infrastructure và Frontend. Ghi chú phân biệt kinh nghiệm công việc, dự án cá nhân và thực hành trong lab. Các tài nguyên logo cũ vẫn được giữ trong `public/technology/`.
 
 Dự án nổi bật có ảnh chụp thật của Technest và Papertrail. TaskFlow sử dụng sơ đồ luồng kỹ thuật có nhãn rõ ràng. Danh sách đầy đủ vẫn giữ cả 8 dự án.
 
@@ -113,18 +115,18 @@ Nguồn tài nguyên hình ảnh và quyết định bố cục được ghi t�
 - **Daily Welcome:** 36 lời chúc Việt/Anh, tối đa một lần mỗi ngày local; toast tự biến mất sau khoảng 4,4 giây, không cản click/scroll. Phối hợp nhiều tab bằng BroadcastChannel/Web Locks và lease dự phòng. Storage bị chặn thì bỏ qua lời chúc. Xem [thiết kế và cách kiểm tra](docs/daily-welcome.md).
 
 - **Phản hồi khi tải:** skeleton cho danh sách dự án và tìm nhanh, thanh báo chuyển trang, khung chờ ảnh giữ đúng tỷ lệ và nút thử lại khi tải ảnh thất bại. Loading kết thúc theo trạng thái tải thực tế, không thêm thời gian chờ giả.
-- **Con trỏ:** mũi tên nhỏ bo mềm khi duyệt trang, bàn tay khi rê lên nút/link; viền xanh nhẹ, không dùng hình con vật hoặc biểu tượng trang trí. SVG cục bộ, chỉ áp dụng cho thiết bị có chuột; ô nhập liệu giữ con trỏ văn bản.
+- **Con trỏ:** dùng con trỏ mặc định của hệ điều hành; không có hiệu ứng chạy theo chuột hoặc click ripple.
 
 - **Menu chuột phải:** menu lối tắt đồng bộ giao diện, mở tìm nhanh, dự án, liên hệ và terminal. Hỗ trợ ↑/↓, Home/End, Enter/Space, Escape; tự điều chỉnh vị trí để không vượt màn hình. Shift + chuột phải mở menu trình duyệt. Các ô nhập liệu và vùng văn bản đang được chọn giữ menu mặc định.
 - **Tìm nhanh:** nhấn Ctrl+K hoặc Cmd+K, hoặc nút kính lúp trên thanh điều hướng. Tìm dự án, công nghệ hoặc mục nội dung; dùng ↑/↓, Enter và Escape. Tìm kiếm hỗ trợ tiếng Việt không dấu. Palette được tải khi mở lần đầu.
 - **Sơ đồ kiến trúc:** có trong 6 case study đủ thông tin xác thực. Chọn node bằng chuột, Tab, phím mũi tên, Home hoặc End để xem giải thích. Trên mobile, các node và danh sách kết nối vẫn đọc được. DMS và VTech chưa có đủ tài liệu để dựng sơ đồ.
-- **Terminal:** nút Terminal mở console nhỏ trên mọi trang. Hỗ trợ `help`, `about`, `skills`, `projects`, `contact`, `clear` và giữ các alias cũ. Đây là mô phỏng cục bộ bằng React, không có shell hoặc backend.
-- **Career journey:** mở từng giai đoạn để xem trách nhiệm, công nghệ và case study liên quan. Nội dung giữ đúng 2 công ty và thời gian trong CV.
+- **Terminal:** nút Terminal trong footer mở console trên mọi trang; menu chuột phải vẫn có lối tắt. Hỗ trợ `help`, `about`, `skills`, `projects`, `contact`, `clear` và giữ các alias cũ. Đây là mô phỏng cục bộ bằng React, không có shell hoặc backend.
+- **Kinh nghiệm:** danh sách theo thời gian hiển thị trực tiếp trách nhiệm, công nghệ và liên kết case study. Nội dung giữ đúng 2 công ty và thời gian trong CV.
 - Các cửa sổ dùng native dialog, giữ focus trong cửa sổ, hỗ trợ Escape và trả focus về nút mở.
 
 ### Lưu ý về nguồn kỹ thuật
 
-CV mô tả Technest với NestJS, trong khi source hiện tại của Technest dùng Express 5 và Drizzle ORM. Ghi chú đối chiếu được giữ trong tài liệu nội bộ; case study dùng source hiện tại cho sơ đồ/chi tiết triển khai; chưa xác nhận lịch sử thay đổi framework. Stack trong bản CV được giữ để đối chiếu.
+CV mô tả Technest với NestJS, trong khi source hiện tại của Technest dùng Express 5 và Drizzle ORM. Trang chủ hiển thị stack triển khai hiện tại và giữ stack/đóng góp gốc trong mục đối chiếu CV có thể mở rộng; case study dùng source hiện tại cho sơ đồ/chi tiết triển khai; chưa xác nhận lịch sử thay đổi framework. Stack trong bản CV được giữ để đối chiếu.
 
 Ảnh chụp thực tế hiện có ở Technest và Papertrail. Sáu dự án còn thiếu ảnh; DMS/VTech thiếu tài liệu kiến trúc. Ngày thực hiện và vai trò cụ thể của Papertrail, PayFlow, SubFlow, TeamFlow vẫn cần bổ sung. Không thêm số liệu hiệu năng hoặc kết quả production khi chưa có bằng chứng.
 

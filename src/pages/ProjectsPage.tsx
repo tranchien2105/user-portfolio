@@ -75,11 +75,7 @@ export default function ProjectsPage() {
           PROJECT ARCHIVE / {String(projects.length).padStart(2, "0")} ENTRIES
         </p>
         <div className="archive-heading-row">
-          <h1>
-            {text("Từ ý tưởng", "From ideas", language)}
-            <br />
-            <span>{text("đến phần mềm.", "to software.", language)}</span>
-          </h1>
+          <h1>{text("Các dự án của mình", "Project archive", language)}</h1>
           <p>
             {text(
               "Những sản phẩm và bài toán mình đã làm: từ giao diện, API và dữ liệu đến tác vụ nền, tích hợp và triển khai.",
@@ -190,11 +186,7 @@ export default function ProjectsPage() {
         aria-label={text("Danh sách dự án", "Project results", language)}
       >
         {visibleProjects.map((project) => (
-          <ProjectEntry
-            project={project}
-            index={projects.indexOf(project)}
-            key={project.slug}
-          />
+          <ProjectEntry project={project} key={project.slug} />
         ))}
         {visibleProjects.length === 0 && (
           <div className="project-empty">

@@ -65,12 +65,14 @@ export function prerenderCases(): Plugin {
         const content = renderToString(
           <LanguageProvider>
             <Navbar projectsPage />
-            <main className="container" id="main" tabIndex={-1}>
-              <ProjectCaseStudy project={project} />
-            </main>
-            <div className="container">
-              <Footer />
-            </div>
+            <>
+              <main className="container" id="main" tabIndex={-1}>
+                <ProjectCaseStudy project={project} />
+              </main>
+              <div className="container">
+                <Footer />
+              </div>
+            </>
           </LanguageProvider>,
         );
         const html = withMetadata(
@@ -90,12 +92,14 @@ export function prerenderCases(): Plugin {
       const content = renderToString(
         <LanguageProvider>
           <Navbar projectsPage />
-          <main className="container" id="main">
-            <NotFoundPage />
-          </main>
-          <div className="container">
-            <Footer />
-          </div>
+          <>
+            <main className="container" id="main">
+              <NotFoundPage />
+            </main>
+            <div className="container">
+              <Footer />
+            </div>
+          </>
         </LanguageProvider>,
       );
       await writeFile(

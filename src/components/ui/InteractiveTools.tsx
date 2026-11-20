@@ -11,6 +11,7 @@ export default function InteractiveTools() {
   const close = useCallback(() => setActive(null), []);
   useEffect(() => {
     const openPalette = () => setActive("palette");
+    const openTerminal = () => setActive("terminal");
     const key = (event: KeyboardEvent) => {
       if (
         (event.ctrlKey || event.metaKey) &&
@@ -24,9 +25,11 @@ export default function InteractiveTools() {
     };
     window.addEventListener("keydown", key);
     window.addEventListener("portfolio:command", openPalette);
+    window.addEventListener("portfolio:terminal", openTerminal);
     return () => {
       window.removeEventListener("keydown", key);
       window.removeEventListener("portfolio:command", openPalette);
+      window.removeEventListener("portfolio:terminal", openTerminal);
     };
   }, []);
   return (
@@ -37,15 +40,6 @@ export default function InteractiveTools() {
           onTerminal={() => setActive("terminal")}
         />
       )}
-      <button
-        className="terminal-launcher"
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded={active === "terminal"}
-        onClick={() => setActive("terminal")}
-      >
-        <span aria-hidden="true">&gt;_</span> Terminal
-      </button>
       {active === "palette" && (
         <Suspense
           fallback={

@@ -5,9 +5,7 @@ import { useTheme } from "../../hooks/useTheme";
 const items = [
   { vi: "Giới thiệu", en: "About", href: "#about" },
   { vi: "Kinh nghiệm", en: "Experience", href: "#exp" },
-  { vi: "Kỹ năng", en: "Skills", href: "#skills" },
   { vi: "Dự án", en: "Projects", href: "#projects" },
-  { vi: "Học vấn", en: "Education", href: "#education" },
   { vi: "Liên hệ", en: "Contact", href: "#contact" },
 ];
 export default function Navbar({
@@ -24,7 +22,7 @@ export default function Navbar({
         aria-label={text("Điều hướng chính", "Main navigation", language)}
       >
         <a className="brand" href="/#home" aria-label="Tran Minh Chien — Home">
-          mc<span>.</span>
+          Tran Minh Chien
         </a>
         <div className="nav-links">
           {items.map((item) => (
@@ -45,70 +43,75 @@ export default function Navbar({
             </a>
           ))}
         </div>
-        <div className="nav-tools">
-          <button
-            className="language-button command-trigger"
-            type="button"
-            aria-haspopup="dialog"
-            aria-keyshortcuts="Control+k Meta+k"
-            aria-label={text(
-              "Tìm nhanh (Ctrl hoặc Cmd + K)",
-              "Quick search (Ctrl or Cmd + K)",
-              language,
-            )}
-            onClick={() => window.dispatchEvent(new Event("portfolio:command"))}
-            onPointerEnter={() => {
-              void import("../ui/CommandPalette").catch(() => {
-                /* Optional preload; it must not block other navigation. */
-              });
-            }}
-            onFocus={() => {
-              void import("../ui/CommandPalette").catch(() => {
-                /* Optional preload; it must not block other navigation. */
-              });
-            }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
+        <details className="nav-preferences">
+          <summary>{text("Tùy chọn", "Options", language)}</summary>
+          <div className="nav-tools">
+            <button
+              className="language-button command-trigger"
+              type="button"
+              aria-haspopup="dialog"
+              aria-keyshortcuts="Control+k Meta+k"
+              aria-label={text(
+                "Tìm nhanh (Ctrl hoặc Cmd + K)",
+                "Quick search (Ctrl or Cmd + K)",
+                language,
+              )}
+              onClick={() =>
+                window.dispatchEvent(new Event("portfolio:command"))
+              }
+              onPointerEnter={() => {
+                void import("../ui/CommandPalette").catch(() => {
+                  /* Optional preload; it must not block other navigation. */
+                });
+              }}
+              onFocus={() => {
+                void import("../ui/CommandPalette").catch(() => {
+                  /* Optional preload; it must not block other navigation. */
+                });
+              }}
             >
-              <circle cx="10" cy="10" r="6" />
-              <path d="m15 15 6 6" />
-            </svg>
-            <kbd>K</kbd>
-          </button>
-          <ClockWidget />
-          <button
-            className="language-button theme-button"
-            type="button"
-            onClick={toggleTheme}
-            aria-label={text(
-              "Đổi giao diện sáng/tối",
-              "Toggle light/dark theme",
-              language,
-            )}
-            aria-pressed={theme === "dark"}
-          >
-            {theme === "light" ? "◐" : "◑"}
-          </button>
-          <button
-            className="language-button"
-            type="button"
-            onClick={toggleLanguage}
-            aria-label={text(
-              "Switch to English",
-              "Chuyển sang tiếng Việt",
-              language,
-            )}
-          >
-            {language.toUpperCase()} <span aria-hidden="true">↔</span>
-          </button>
-        </div>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <circle cx="10" cy="10" r="6" />
+                <path d="m15 15 6 6" />
+              </svg>
+              <kbd>K</kbd>
+            </button>
+            <ClockWidget />
+            <button
+              className="language-button theme-button"
+              type="button"
+              onClick={toggleTheme}
+              aria-label={text(
+                "Đổi giao diện sáng/tối",
+                "Toggle light/dark theme",
+                language,
+              )}
+              aria-pressed={theme === "dark"}
+            >
+              {theme === "light" ? "◐" : "◑"}
+            </button>
+            <button
+              className="language-button"
+              type="button"
+              onClick={toggleLanguage}
+              aria-label={text(
+                "Switch to English",
+                "Chuyển sang tiếng Việt",
+                language,
+              )}
+            >
+              {language.toUpperCase()} <span aria-hidden="true">↔</span>
+            </button>
+          </div>
+        </details>
       </nav>
     </header>
   );

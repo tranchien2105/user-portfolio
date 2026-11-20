@@ -11,7 +11,7 @@ export function ProjectLinks({ project }: { project: ProjectItem }) {
           rel="noreferrer"
           aria-label={`${project.name} GitHub`}
         >
-          GitHub ↗
+          GitHub
         </a>
       )}
       {project.live && project.liveStatus !== "unavailable" && (
@@ -21,7 +21,7 @@ export function ProjectLinks({ project }: { project: ProjectItem }) {
           rel="noreferrer"
           aria-label={`${project.name} Live Demo`}
         >
-          Live Demo ↗
+          Live demo
         </a>
       )}
       {project.liveStatus === "unavailable" && (

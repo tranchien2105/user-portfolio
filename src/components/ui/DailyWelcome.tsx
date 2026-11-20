@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { text, useLanguage } from "../../hooks/useLanguage";
+import { useLanguage } from "../../hooks/useLanguage";
 import {
   localDayKey,
   millisecondsUntilNextLocalDay,
@@ -90,26 +90,7 @@ export function DailyWelcome() {
         } as CSSProperties
       }
     >
-      <span className="daily-welcome-icon" aria-hidden="true">
-        <svg
-          width="25"
-          height="25"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        >
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
-        </svg>
-      </span>
-      <div>
-        <p className="daily-welcome-label">
-          {text("MỘT LỜI CHÚC NHỎ", "A LITTLE WISH", language)}
-        </p>
-        <p className="daily-welcome-message">{welcome.wish[language]}</p>
-      </div>
+      <p className="daily-welcome-message">{welcome.wish[language]}</p>
     </aside>
   );
 }
